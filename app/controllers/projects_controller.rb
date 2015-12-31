@@ -1,11 +1,13 @@
 class ProjectsController < ApplicationController
 
+before_action :set_name, only: [:show, :edit, :update, :destroy]
+# after_action も存在
+
   def index
     @projects = Project.all
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def new
@@ -13,8 +15,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
-    if @project.save
+    project = Project.new(project_params)
+    if project.save
       redirect_to projects_path
     else
       render 'new'
@@ -22,11 +24,9 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update(project_params)
       redirect_to projects_path
     else
@@ -35,7 +35,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
     redirect_to projects_path
   end
@@ -43,6 +42,11 @@ class ProjectsController < ApplicationController
   private
   def project_params
     params[:project].permit(:title)
+  end
+
+  private
+  def set_name
+    @project = Project.find(params[:id])
   end
 
 end

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :projects
+  resources :projects do   # project に関連してtask を関連付け
+    resources :tasks, only: [:create, :destroy] 
+  end
 
   root 'projects#index'
 

@@ -4,7 +4,8 @@
   <%= f.label :title %><br>
   <%= f.text_field :title %><br>
   <% if @project.errors.any? %>
-  <%= @project.errors.messages[:title][0] %>
+  <!-- <%= @project.errors.messages[:title][0] %> -->
+  <%= @project.errors.inspect %>
   <% end %>
 </p>
 
